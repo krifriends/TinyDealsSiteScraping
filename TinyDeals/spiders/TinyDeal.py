@@ -21,4 +21,6 @@ class TinydealSpider(scrapy.Spider):
                 'discountedPrice':discountedPrice,
                 'originalPrice':originalPrice
             }
-        
+        nextPageExists = response.xpath("//a[@class='nextPage']/@href").get()
+        if nextPageExists:
+            yield scrapy.Request(url=nextPageExists, callback= self.parse)
